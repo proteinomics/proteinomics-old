@@ -1,0 +1,28 @@
+node_modules
+.netlify
+
+# R files to ignore
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+.RDataTmp
+.RDataTmp*
+
+# Common Hugo files to ignore
+/public/
+/resources/
+/resources/_gen/
+.hugo_build.lock
+
+# Downloaded data files to ignore
+/proteinomics/faostat/data_raw/
+/proteinomics/faostat/data/
+
+# Scratchpad and draft content
+#/content/en/about/
+#/content/en/credits/
+/content/contributors/
+/content/faq/
+#/content/en/glossary/
+/content/data/scratchpad/

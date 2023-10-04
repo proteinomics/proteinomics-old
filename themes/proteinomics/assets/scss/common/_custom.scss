@@ -1,0 +1,38 @@
+// Put your custom SCSS code here
+
+.about .section {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+ 
+.data main {
+    width: 68.75%; 
+}
+
+.highchart,
+.highcharts-container,
+.highcharts-container svg {
+    width: 100% !important;
+}
+
+.breadcrumb {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    content: var(--bs-breadcrumb-divider, ">");
+}
+
+.home .animal-pop-table .gt_stub {
+    width: 33%;
+}
+
+#animal_tables .gt_table {
+    width: 550px !important;
+    margin: 0;
+}
+
+#animal_tables .gt_stub {
+    width: 33%;
+}

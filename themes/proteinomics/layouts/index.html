@@ -1,0 +1,133 @@
+{{ define "main" }}
+<section class="section container-fluid mt-n3 pb-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-16">
+      <h1>{{ .Title }}</h1>
+      <span class="lead h1">{{ .Params.lead | safeHTML }}</span>
+      <span class="lead h1">Explore topics below or learn more <a href="/about/">about the project</a>.</span>
+      
+    </div>
+    <!--
+    <div class="col-lg-9 col-xl-8 text-center">
+      <a class="btn btn-primary btn-cta rounded-pill btn-lg my-3" href="/docs/{{ if site.Data.doks.docsVersioning }}{{ site.Data.doks.docsVersion }}/{{ end }}guides/example-guide/" role="button">{{ i18n "get-started" }}</a>
+    </div>
+    -->
+  </div>
+</section>
+{{ end }}
+
+{{ define "sidebar-prefooter" }}
+  {{ if site.Data.doks.backgroundDots -}}
+  <div class="d-flex justify-content-start">
+    <div class="bg-dots"></div>
+  </div>
+  {{ end -}}
+  {{ if eq $.Site.Language.LanguageName "English" }}
+  <section class="section section-sm">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card">
+            <img class="card-img-top" src="/images/topics/population.jpg" alt="Card image cap">
+            <div class="card-body p-1">
+              <h2 class="card-title m-2">Population</h2>
+              <p class="card-text ms-2">Human population totals. Fertility. Mortality. Urban-rural.</p>
+              <a class="stretched-link" href="/data/population/totals"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <img class="card-img-top" src="/images/topics/animals.jpg" alt="Card image cap">
+            <div class="card-body p-1">
+              <h2 class="card-title m-2">Animals</h2>
+              <p class="card-text ms-2">Farmed animal populations and slaughter.</p>
+              <a class="stretched-link" href="/data/animals/populations/world"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <img class="card-img-top" src="/images/topics/production.jpg" alt="Card image cap">
+            <div class="card-body p-1">
+              <h2 class="card-title m-2">Production</h2>
+              <p class="card-text ms-2">Crop and product volumes.</p>
+              <a class="stretched-link" href="/data/production/meat"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <img class="card-img-top" src="/images/topics/trade.jpg" alt="Card image cap">
+            <div class="card-body p-1">
+              <h2 class="card-title m-2">Trade</h2>
+              <p class="card-text ms-2">Top importers and exporters of key crops.</p>
+              <a class="stretched-link" href="/data/trade/soybeans"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <img class="card-img-top" src="/images/topics/nutrition.jpg" alt="Card image cap">
+            <div class="card-body p-1">
+              <h2 class="card-title m-2">Nutrition</h2>
+              <p class="card-text ms-2">Dietary protein compositions. Actual vs. recommended protein intake.</p>
+              <a class="stretched-link" href="/data/nutrition/protein-sources/world "></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <img class="card-img-top" src="/images/topics/prices.jpg" alt="Card image cap">
+            <div class="card-body p-1">
+              <h2 class="card-title m-2">Prices</h2>
+              <p class="card-text ms-2">Latest and historical prices of crops and products.</p>
+              <a class="stretched-link" href="/data/prices/consumer-prices/united-states/latest"></a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <img class="card-img-top" src="/images/topics/labor.jpg" alt="Card image cap">
+            <div class="card-body p-1">
+              <h2 class="card-title m-2">Labor</h2>
+              <p class="card-text ms-2">Emplyment in production and processing. Working conditions.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <img class="card-img-top" src="/images/topics/environment.jpg" alt="Card image cap">
+            <div class="card-body p-1">
+              <h2 class="card-title m-2">Environment</h2>
+              <p class="card-text ms-2">Deforestation. Biodiversity loss. Land, water, and air pollution.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <img class="card-img-top" src="/images/topics/publichealth.jpg" alt="Card image cap">
+            <div class="card-body p-1">
+              <h2 class="card-title m-2">Public Health</h2>
+              <p class="card-text ms-2">Antimicrobial resistance. Pandemic risk. Food safety. Lifestyle disease.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+{{ end }}
+
+{{ define "sidebar-footer" }}
+{{ if site.Data.doks.sectionFooter -}}
+<section class="section section-md container-fluid bg-light">
+  <div class="row justify-content-center text-center">
+    <div class="col-lg-7">
+      <h2 class="mt-2">Start building with Doks today</h2>
+      <a class="btn btn-primary rounded-pill px-4 my-2" href="/docs/{{ if site.Data.doks.docsVersioning }}{{ site.Data.doks.docsVersion }}/{{ end }}prologue/introduction/" role="button">{{ i18n "get-started" }}</a>
+    </div>
+  </div>
+</section>
+{{ end -}}
+{{ end }}

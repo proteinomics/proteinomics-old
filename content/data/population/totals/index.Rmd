@@ -1,0 +1,194 @@
+---
+title: "Totals"
+description: ""
+lead: ""
+date: 2022-07-16T09:24:51+02:00
+lastmod: 2022-07-16T09:24:51+02:00
+draft: false
+images: []
+menu:
+  data:
+    parent: ""
+    identifier: "totals-74654dfd4bf3b3a4ce27a2cba9823049"
+weight: 1
+toc: false
+---
+
+```{r setup, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+#load libraries
+library(dplyr)
+library(readr)
+library(highcharter)
+library(htmlwidgets)
+library(here)
+
+## Load proteinomics highcharts plot style settings
+p_theme <- paste(here(), "proteinomics/highcharts/p_theme.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts <- paste(here(), "proteinomics/highcharts/p_chart_opts.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts()
+```
+
+```{r wpp2022_data, echo=FALSE, message=FALSE, warning=FALSE}
+library(devtools)
+options(timeout = 600)
+install_github("PPgp/wpp2022")
+library(wpp2022)
+data(pop1dt)
+data(popproj1dt)
+data(UNlocations)
+
+total_pops <- bind_rows(pop1dt, popproj1dt) %>%
+  # highcharts grouping has conflict with variable "name"
+  rename(area=name)
+
+# World
+world <- total_pops %>%
+  filter(country_code==900) %>%
+  select(year, pop, pop_low, pop_high)
+
+# Continents
+continents_list <- list("Africa", "Asia", "Europe", "Latin America and the Caribbean", "Northern America", "Oceania")
+continents <- total_pops %>%
+  filter(area %in% continents_list) %>%
+  select(year, area, pop)
+
+# Sub continents
+## add missing reg_name values for Northern America countries
+northernAmerica <- list("Bermuda", "Canada", "Greenland", "Saint Pierre and Miquelon", "United States of America")
+UNlocations <- UNlocations %>%
+  mutate(reg_name = ifelse(name %in% northernAmerica, "Northern America", reg_name))
+  subcontinents <- total_pops %>%
+    filter(area %in% UNlocations$reg_name) %>%
+    select(year, area, pop)
+  
+# Regions
+regions_list <- list("Sub-Saharan Africa", "Northern Africa and Western Asia", "Central and Southern Asia", "Eastern and South-Eastern Asia", "Latin America and the Caribbean", "Oceania (excluding Australia and New Zealand)", "Australia/New Zealand", "Europe and Northern America")
+regions <- total_pops %>%
+  filter(area %in% regions_list) %>%
+  select(year, area, pop)
+  
+# Economic groupings
+econ_groups_list <- list("More developed regions", "Less developed regions", "Least developed countries", "Less developed regions, excluding least developed countries", "Less developed regions, excluding China", "Land-locked Developing Countries (LLDC)", "Small Island Developing States (SIDS)", "High-income countries", "Middle-income countries", "Upper-middle-income countries", "Lower-middle-income countries", "Low-income countries", "No income group available")
+econ_groups <- total_pops %>%
+  filter(area %in% econ_groups_list) %>%
+  select(year, area, pop)
+
+# Countries
+`%notin%` <- Negate(`%in%`)
+aggregates <- c(continents_list, UNlocations$reg_name, regions_list, econ_groups_list, "World")
+countries <- total_pops %>%
+  filter(area %notin% continents_list, area %notin% aggregates) %>%
+  select(year, area, pop) 
+# get 10 most populous countries in 2100
+pop2100 <- countries %>%
+  arrange(-year, -pop) %>%
+  slice(1:10)
+# get times series for top 10
+pop10 <- countries %>%
+  filter(area %in% pop2100$area)
+
+```
+
+
+```{r pop_plots, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Make plots
+
+## World plot
+
+world_plot <- highchart() %>%
+  hc_add_series(filter(world, year <= 2021), "spline", hcaes(year, pop), name="Historical") %>%
+  hc_add_series(filter(world, year > 2021), "spline", hcaes(year, pop), name="Median", color="red", dashStyle="shortdash") %>%
+  hc_add_series(world, "spline", hcaes(year, pop_low), name="Low", dashStyle="shortdash") %>%
+  hc_add_series(world, "spline", hcaes(year, pop_high), name="High", dashStyle="shortdash") %>%
+  hc_title(text = "Total Global Population Estimates") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(world$year), "-", max(world$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(split=T) %>%
+  hc_add_theme(p_theme())
+world_plot
+
+## Continents plot
+
+continents_plot <- highchart() %>%
+  hc_add_series(continents, "spline", hcaes(year, pop, group=area)) %>%
+  hc_title(text = "Total Populations by Continent") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(continents$year), "-", max(continents$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(table=T, sort=T) %>%
+  hc_add_theme(p_theme()) 
+continents_plot
+
+## Sub continents plot
+
+subcontinents_plot <- highchart() %>%
+  hc_add_series(subcontinents, "spline", hcaes(year, pop, group=area)) %>%
+  hc_title(text = "Total Populations by Sub Continent") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(subcontinents$year), "-", max(subcontinents$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(table=T, sort=T) %>%
+  hc_add_theme(p_theme()) 
+subcontinents_plot
+
+## Regions plot
+
+regions_plot <- highchart() %>%
+  hc_add_series(regions, "spline", hcaes(year, pop, group=area)) %>%
+  hc_title(text = "Total Populations by Region") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(regions$year), "-", max(regions$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(table=T, sort=T) %>%
+  hc_add_theme(p_theme()) 
+regions_plot
+
+## Econ groups plot
+
+groups_plot <- highchart() %>%
+  hc_add_series(econ_groups, "spline", hcaes(year, pop, group=area)) %>%
+  hc_title(text = "Total Populations by Economic Grouping") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(econ_groups$year), "-", max(econ_groups$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(table=T, sort=T) %>%
+  hc_add_theme(p_theme()) 
+groups_plot
+
+## Countries plot
+
+pop10_plot <- highchart() %>%
+  hc_add_series(pop10, "spline", hcaes(year, pop, group=area)) %>%
+  hc_title(text = "Top 10 Most Populous Countries in 2100") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(pop10$year), "-", max(pop10$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(table=T, sort=T) %>%
+  hc_add_theme(p_theme()) 
+pop10_plot
+
+########### Plotly plots
+
+## testing crosstalk
+
+library(plotly)
+library(crosstalk)
+tx <- highlight_key(txhousing)
+widgets <- bscols(
+  widths = c(12, 12, 12),
+  filter_checkbox("city", "Cities", tx, ~city, columns = 4),
+  filter_slider("sales", "Sales", tx, ~sales),
+  filter_checkbox("year", "Years", tx, ~year, inline = TRUE)
+)
+bscols(
+  widths = c(12, 12), 
+  plot_ly(tx, x = ~date, y = ~median, showlegend = FALSE) %>% 
+    add_lines(color = ~city, colors = "black"),
+  widgets
+)
+
+```

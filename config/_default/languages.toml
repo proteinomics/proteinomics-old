@@ -1,0 +1,9 @@
+[en]
+  languageName = "English"
+  contentDir = "content/en"
+  weight = 10
+  [en.params]
+    languageISO = "EN"
+    languageTag = "en-US"
+    footer = 'Brought to you by <a class="text-muted" href="https://www.proteinreport.org/">Protein Report</a>'
+    alertText = '<a class="alert-link stretched-link fw-normal" href="/about/">Welcome! Read about proteinomics.</a>'

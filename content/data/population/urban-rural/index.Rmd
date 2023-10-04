@@ -1,0 +1,47 @@
+---
+title: "Urban-Rural"
+description: ""
+lead: ""
+date: 2022-07-25T17:34:10+02:00
+lastmod: 2022-07-25T17:34:10+02:00
+draft: false
+images: []
+menu:
+  data:
+    parent: ""
+    identifier: "urban-rural-d5e8e56e50a8f24ef8ff7f9bad334b9e"
+weight: 15
+toc: false
+---
+
+```{r setup, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+#load libraries
+library(dplyr)
+library(readr)
+library(highcharter)
+library(htmlwidgets)
+library(here)
+
+## Load proteinomics highcharts plot style settings
+p_theme <- paste(here(), "proteinomics/highcharts/p_theme.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts <- paste(here(), "proteinomics/highcharts/p_chart_opts.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts()
+```
+
+```{r fao_pop, echo=FALSE, message=FALSE, warning=FALSE}
+# Load FAO population data
+fao_pop <- paste(here(), "proteinomics/faostat/data/fao_pop.rds", sep = "/") %>%
+  read_rds()
+
+# Load country group mapping
+fao_groups_all <- paste(here(), "proteinomics/faostat/fao_groups.rds", sep = "/") %>%
+  read_rds()
+
+# Add fao groups to population data
+fao_pop <- left_join(fao_pop, fao_groups_all, by=c("area_code"="Country.Code"))
+
+```
+
+## Coming soon...

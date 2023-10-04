@@ -1,0 +1,145 @@
+---
+title: "Fertility"
+description: ""
+lead: ""
+date: 2022-07-31T09:11:07+02:00
+lastmod: 2022-07-31T09:11:07+02:00
+draft: false
+images: []
+menu:
+  data:
+    parent: ""
+    identifier: "fertility-835909aad4e36c2cbed7a869c1fdea2b"
+weight: 5
+toc: false
+---
+
+```{r setup, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+#load libraries
+library(dplyr)
+library(readr)
+library(highcharter)
+library(htmlwidgets)
+library(here)
+
+## Load proteinomics highcharts plot style settings
+p_theme <- paste(here(), "proteinomics/highcharts/p_theme.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts <- paste(here(), "proteinomics/highcharts/p_chart_opts.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts()
+```
+
+```{r wpp2022_fert, echo=FALSE, message=FALSE, warning=FALSE}
+library(wpp2022)
+data(tfr1dt)
+data(tfrproj1dt)
+data(tfr_supplemental)
+data(UNlocations)
+
+fert <- bind_rows(tfr1dt, tfrproj1dt) %>%
+  # highcharts grouping has conflict with variable "name"
+  rename(area=name)
+
+# World
+world <- fert %>%
+  filter(country_code==900) %>%
+  select(area, year, tfr, tfr_low, tfr_high)
+
+# Continents
+continents_list <- list("Africa", "Asia", "Europe", "Latin America and the Caribbean", "Northern America", "Oceania")
+continents <- fert %>%
+  filter(area %in% continents_list) %>%
+  select(year, area, tfr, tfr_low, tfr_high)
+
+# Sub continents
+## add missing reg_name values for Northern America countries in UNlocations
+northernAmerica <- list("Bermuda", "Canada", "Greenland", "Saint Pierre and Miquelon", "United States of America")
+UNlocations <- UNlocations %>%
+  mutate(reg_name = ifelse(name %in% northernAmerica, "Northern America", reg_name))
+  subcontinents <- fert %>%
+    filter(area %in% UNlocations$reg_name) %>%
+    select(year, area, tfr)
+  
+# Regions
+regions_list <- list("Sub-Saharan Africa", "Northern Africa and Western Asia", "Central and Southern Asia", "Eastern and South-Eastern Asia", "Latin America and the Caribbean", "Oceania (excluding Australia and New Zealand)", "Australia/New Zealand", "Europe and Northern America")
+regions <- fert %>%
+  filter(area %in% regions_list) %>%
+  select(year, area, tfr)
+
+# Economic groupings
+econ_groups_list <- list("More developed regions", "Less developed regions", "Least developed countries", "Less developed regions, excluding least developed countries", "Less developed regions, excluding China", "Land-locked Developing Countries (LLDC)", "Small Island Developing States (SIDS)", "High-income countries", "Middle-income countries", "Upper-middle-income countries", "Lower-middle-income countries", "Low-income countries", "No income group available")
+econ_groups <- fert %>%
+  filter(area %in% econ_groups_list) %>%
+  select(year, area, tfr)
+
+```
+
+```{r wpp2022_fert_plots, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Make plots
+
+## World plot
+
+world_plot <- highchart() %>%
+  hc_add_series(filter(world, year <= 2021), "spline", hcaes(year, tfr), name="Historical") %>%
+  hc_add_series(filter(world, year > 2021), "spline", hcaes(year, tfr), name="Median", color="red", dashStyle="shortdash") %>%
+  hc_add_series(world, "spline", hcaes(year, tfr_low), name="Low", dashStyle="shortdash") %>%
+  hc_add_series(world, "spline", hcaes(year, tfr_high), name="High", dashStyle="shortdash") %>%
+  hc_title(text = "Global Fertility Rate Estimates") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(world$year), "-", max(world$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(split=T) %>%
+  hc_add_theme(p_theme())
+world_plot
+
+## Continents plot
+
+continents_plot <- highchart() %>%
+  hc_add_series(continents, "spline", hcaes(year, tfr, group=area)) %>%
+  hc_title(text = "Fertility Rates by Continent") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(continents$year), "-", max(continents$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(table=T, sort=T) %>%
+  hc_add_theme(p_theme()) 
+continents_plot
+
+## Sub continents plot
+
+subcontinents_plot <- highchart() %>%
+  hc_add_series(subcontinents, "spline", hcaes(year, tfr, group=area)) %>%
+  hc_title(text = "Fertility Rates by Sub Continent") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(subcontinents$year), "-", max(subcontinents$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(table=T, sort=T) %>%
+  hc_add_theme(p_theme()) 
+subcontinents_plot
+
+## Regions plot
+
+regions_plot <- highchart() %>%
+  hc_add_series(regions, "spline", hcaes(year, tfr, group=area)) %>%
+  hc_title(text = "Fertility Rates by Region") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(regions$year), "-", max(regions$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(table=T, sort=T) %>%
+  hc_add_theme(p_theme()) 
+regions_plot
+
+## Econ groups plot
+
+groups_plot <- highchart() %>%
+  hc_add_series(econ_groups, "spline", hcaes(year, tfr, group=area)) %>%
+  hc_title(text = "Fertility Rates by Economic Grouping") %>%
+  hc_subtitle(text = paste("Historical and Projected,", min(econ_groups$year), "-", max(econ_groups$year))) %>%
+  hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(table=T, sort=T) %>%
+  hc_add_theme(p_theme()) 
+groups_plot
+
+```

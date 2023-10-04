@@ -1,0 +1,56 @@
+---
+title: "Dairy"
+description: ""
+lead: ""
+date: 2022-07-16T16:33:05+02:00
+lastmod: 2022-07-16T16:33:05+02:00
+draft: false
+images: []
+menu:
+  data:
+    parent: ""
+    identifier: "meat-c7b8bae7787aafbe2eb699b2f07a0028"
+weight: 999
+toc: false
+---
+
+```{r setup, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+#load libraries
+library(dplyr)
+library(readr)
+library(highcharter)
+library(htmlwidgets)
+library(here)
+
+## Load proteinomics highcharts plot style settings
+p_theme <- paste(here(), "proteinomics/highcharts/p_theme.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts <- paste(here(), "proteinomics/highcharts/p_chart_opts.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts()
+
+```
+
+```{r milk, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Load FAO crop data
+faodata <- paste(here(), "proteinomics/faostat/data/crop_production.rds", sep="/") %>%
+  read_rds()
+
+# Filter for item, element, and area
+dairy_codes <- c(1780)
+
+dairy <- filter(faodata, item_code %in% dairy_codes, element_code == 5510, area_code == 5000)
+
+# Make plot
+
+highchart() %>%
+  hc_add_series(dairy, "spline", hcaes(year, value, group=item)) %>%
+  hc_title(text = "Global Dairy Production") %>%
+  hc_subtitle(text = paste("Tonnes,", min(dairy$year), "-", max(dairy$year)) ) %>%
+  hc_caption(text = "Source: FAO") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_tooltip(split=F, table=T, sort=T) %>%
+  hc_add_theme(p_theme())
+
+```
