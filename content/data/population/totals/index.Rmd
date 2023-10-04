@@ -1,17 +1,17 @@
 ---
 title: "Totals"
-description: ""
-lead: ""
-date: 2022-07-16T09:24:51+02:00
-lastmod: 2022-07-16T09:24:51+02:00
-draft: false
+description: ''
+date: "2022-07-16T09:24:51+02:00"
+lead: ''
+lastmod: "2022-07-16T09:24:51+02:00"
+draft: no
 images: []
 menu:
   data:
-    parent: ""
+    parent: ''
     identifier: "totals-74654dfd4bf3b3a4ce27a2cba9823049"
 weight: 1
-toc: false
+toc: no
 ---
 
 ```{r setup, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
