@@ -68,7 +68,7 @@ docsRepoSubPath = "" # "" (none, default) or <sub path>
 [menu]
   [menu.section]
     auto = true # true (default) or false
-    collapsibleSidebar = true # true (default) or false
+    collapsibleSidebar = false # true (default) or false
 
 # SCSS
 # backGround = "yellowgreen"

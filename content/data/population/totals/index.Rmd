@@ -111,7 +111,7 @@ world_plot <- highchart() %>%
   hc_add_theme(p_theme())
 world_plot
 
-## Continents plot
+# Continents plot
 
 continents_plot <- highchart() %>%
   hc_add_series(continents, "spline", hcaes(year, pop, group=area)) %>%
@@ -119,9 +119,60 @@ continents_plot <- highchart() %>%
   hc_subtitle(text = paste("Historical and Projected,", min(continents$year), "-", max(continents$year))) %>%
   hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
   hc_exporting(enabled=TRUE) %>%
-  hc_tooltip(table=T, sort=T) %>%
-  hc_add_theme(p_theme()) 
+  hc_tooltip(sort=T, table=T) %>%
+  hc_add_theme(p_theme())
 continents_plot
+
+
+# library(plotly)
+# 
+# title_text <- paste(
+#   "Total Populations by Continent<br><sub>",
+#   "Historical and Projected,", min(continents$year), "-", max(continents$year),
+#   "</sub>"
+# )
+# 
+# # Create a custom hover template
+# hovertemplate_custom <- "%{y}"
+# 
+# continents_plot <- plot_ly(data = continents, x = ~year, y = ~pop, color = ~area, type = "scatter", mode = "lines",
+#                            hoverinfo = 'y+name',
+#                            hovertemplate = hovertemplate_custom,
+#                            name = ~area) %>%
+#   layout(
+#     title = title_text,
+#     annotations = list(
+#       list(
+#         x = 0.5,             # Centered
+#         y = -0.3,           # Adjusted to appear below the legend
+#         text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.",
+#         xref = "paper",
+#         yref = "paper",
+#         showarrow = FALSE,
+#         align = "center",    # Text alignment
+#         xanchor = "center",  # Anchoring in the center
+#         yanchor = "top",     # Text starts from top and goes downward
+#         font = list(size = 10) # Optional: Adjust font size if necessary
+#       )
+#     ),
+#     legend = list(
+#       orientation = "h",
+#       x = 0.5,
+#       y = -0.22,           # Adjusted to appear just above the source text
+#       xanchor = "center",
+#       yanchor = "top"
+#     ),
+#     xaxis = list(title = ""),
+#     yaxis = list(title = ""),
+#     hovermode = 'x unified'
+#   ) %>%
+#   layout(autosize = TRUE) %>%
+#   config(displayModeBar = FALSE)
+# 
+# continents_plot
+
+
+
 
 ## Sub continents plot
 
@@ -175,20 +226,20 @@ pop10_plot
 
 ## testing crosstalk
 
-library(plotly)
-library(crosstalk)
-tx <- highlight_key(txhousing)
-widgets <- bscols(
-  widths = c(12, 12, 12),
-  filter_checkbox("city", "Cities", tx, ~city, columns = 4),
-  filter_slider("sales", "Sales", tx, ~sales),
-  filter_checkbox("year", "Years", tx, ~year, inline = TRUE)
-)
-bscols(
-  widths = c(12, 12), 
-  plot_ly(tx, x = ~date, y = ~median, showlegend = FALSE) %>% 
-    add_lines(color = ~city, colors = "black"),
-  widgets
-)
+# library(plotly)
+# library(crosstalk)
+# tx <- highlight_key(txhousing)
+# widgets <- bscols(
+#   widths = c(12, 12, 12),
+#   filter_checkbox("city", "Cities", tx, ~city, columns = 4),
+#   filter_slider("sales", "Sales", tx, ~sales),
+#   filter_checkbox("year", "Years", tx, ~year, inline = TRUE)
+# )
+# bscols(
+#   widths = c(12, 12), 
+#   plot_ly(tx, x = ~date, y = ~median, showlegend = FALSE) %>% 
+#     add_lines(color = ~city, colors = "black"),
+#   widgets
+# )
 
 ```
