@@ -136,29 +136,37 @@ cattle_tab %>% gt(rowname_col = "Item", id="animal_tables") %>%
     column_labels.font.weight = "bold"
   ) %>%
   cols_align(
-    align = "center"
-  ) 
+    align = "right",
+    columns = 2:4
+  ) %>%
+  fmt_number(columns = 2:4, use_seps = TRUE, decimals = 0) 
 hogs_tab %>% gt(rowname_col = "Item", id="animal_tables") %>%
   tab_options(
     column_labels.font.weight = "bold"
   ) %>%
   cols_align(
-    align = "center"
-  ) 
+    align = "right",
+    columns = 2:4
+  ) %>%
+  fmt_number(columns = 2:4, use_seps = TRUE, decimals = 0) 
 sheep_tab %>% gt(rowname_col = "Item", id="animal_tables") %>%
   tab_options(
     column_labels.font.weight = "bold"
   ) %>%
   cols_align(
-    align = "center"
-  ) 
+    align = "right",
+    columns = 2:4
+  ) %>%
+  fmt_number(columns = 2:4, use_seps = TRUE, decimals = 0) 
 goats_tab %>% gt(rowname_col = "Item", id="animal_tables") %>%
   tab_options(
     column_labels.font.weight = "bold"
   ) %>%
   cols_align(
-    align = "center"
-  ) 
+    align = "right",
+    columns = 2:4
+  ) %>%
+  fmt_number(columns = 2:4, use_seps = TRUE, decimals = 0) 
 ```
 Source: USDA. This product uses the NASS API but is not endorsed or certified by NASS.
 

@@ -24,15 +24,11 @@
     content: var(--bs-breadcrumb-divider, ">");
 }
 
-.home .animal-pop-table .gt_stub {
-    width: 33%;
-}
-
 #animal_tables .gt_table {
-    width: 550px !important;
-    margin: 0;
+    width: 100% !important;
 }
 
 #animal_tables .gt_stub {
-    width: 33%;
+    width: 25%;
+    margin-left: 0 !important;
 }

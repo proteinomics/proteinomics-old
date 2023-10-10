@@ -107,7 +107,7 @@ world_plot <- highchart() %>%
   hc_subtitle(text = paste("Historical and Projected,", min(world$year), "-", max(world$year))) %>%
   hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
   hc_exporting(enabled=TRUE) %>%
-  hc_tooltip(split=T) %>%
+  hc_tooltip(split=T, valueDecimals = 0) %>%
   hc_add_theme(p_theme())
 world_plot
 
@@ -119,7 +119,7 @@ continents_plot <- highchart() %>%
   hc_subtitle(text = paste("Historical and Projected,", min(continents$year), "-", max(continents$year))) %>%
   hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
   hc_exporting(enabled=TRUE) %>%
-  hc_tooltip(sort=T, table=T) %>%
+  hc_tooltip(sort=T, table=T, valueDecimals = 0) %>%
   hc_add_theme(p_theme())
 continents_plot
 
@@ -182,7 +182,7 @@ subcontinents_plot <- highchart() %>%
   hc_subtitle(text = paste("Historical and Projected,", min(subcontinents$year), "-", max(subcontinents$year))) %>%
   hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
   hc_exporting(enabled=TRUE) %>%
-  hc_tooltip(table=T, sort=T) %>%
+  hc_tooltip(table=T, sort=T, valueDecimals = 0) %>%
   hc_add_theme(p_theme()) 
 subcontinents_plot
 
@@ -194,7 +194,7 @@ regions_plot <- highchart() %>%
   hc_subtitle(text = paste("Historical and Projected,", min(regions$year), "-", max(regions$year))) %>%
   hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
   hc_exporting(enabled=TRUE) %>%
-  hc_tooltip(table=T, sort=T) %>%
+  hc_tooltip(table=T, sort=T, valueDecimals = 0) %>%
   hc_add_theme(p_theme()) 
 regions_plot
 
@@ -206,7 +206,7 @@ groups_plot <- highchart() %>%
   hc_subtitle(text = paste("Historical and Projected,", min(econ_groups$year), "-", max(econ_groups$year))) %>%
   hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
   hc_exporting(enabled=TRUE) %>%
-  hc_tooltip(table=T, sort=T) %>%
+  hc_tooltip(table=T, sort=T, valueDecimals = 0) %>%
   hc_add_theme(p_theme()) 
 groups_plot
 
@@ -218,7 +218,7 @@ pop10_plot <- highchart() %>%
   hc_subtitle(text = paste("Historical and Projected,", min(pop10$year), "-", max(pop10$year))) %>%
   hc_caption(text = "Source: United Nations, Department of Economic and Social Affairs, Population Division (2022). World Population Prospects 2022.") %>%
   hc_exporting(enabled=TRUE) %>%
-  hc_tooltip(table=T, sort=T) %>%
+  hc_tooltip(table=T, sort=T, valueDecimals = 0) %>%
   hc_add_theme(p_theme()) 
 pop10_plot
 

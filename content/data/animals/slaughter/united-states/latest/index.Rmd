@@ -21,6 +21,7 @@ toc: no
 library(rnassqs)
 library(dplyr)
 library(gt)
+library(gtsummary)
 library(data.table)
 ```
 
@@ -238,8 +239,10 @@ slaughter_tab %>% gt(rowname_col = "Animal", id="animal_tables") %>%
     column_labels.font.weight = "bold"
   ) %>%
   cols_align(
-    align = "center"
-  ) 
+    align = "right",
+    columns = 2:4
+  ) %>%
+  fmt_number(columns = 2:4, use_seps = TRUE, decimals = 0)
 #montly data
 slaughter_mo_tab %>% gt(rowname_col = "Animal", id="animal_tables") %>%
   tab_spanner(label = "Month", columns = 2:4) %>%
@@ -251,8 +254,10 @@ slaughter_mo_tab %>% gt(rowname_col = "Animal", id="animal_tables") %>%
     column_labels.font.weight = "bold"
   ) %>%
   cols_align(
-    align = "center"
-  ) 
+    align = "right",
+    columns = 2:4
+  ) %>%
+  fmt_number(columns = 2:4, use_seps = TRUE, decimals = 0) 
 #weekly data
 slaughter_we_tab %>% gt(rowname_col = "Animal", id="animal_tables") %>%
   tab_spanner(label = "Week Ending", columns = 2:4) %>%
@@ -264,8 +269,10 @@ slaughter_we_tab %>% gt(rowname_col = "Animal", id="animal_tables") %>%
     column_labels.font.weight = "bold"
   ) %>%
   cols_align(
-    align = "center"
-  ) 
+    align = "right",
+    columns = 2:4
+  ) %>%
+  fmt_number(columns = 2:4, use_seps = TRUE, decimals = 0) 
 ```
 Source: USDA. This product uses the NASS API but is not endorsed or certified by NASS.
 
