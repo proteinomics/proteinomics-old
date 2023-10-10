@@ -7,9 +7,13 @@ draft: false
 images: []
 ---
 
-Proteinomics.org strives to make data and statistics easily understandable for everyone. Here, complexity is embraced and beautified. However, many of the organizations and governments from where we source data can be rather idiosyncratic, especially when it comes to abbreviations and acronyms.
+Proteinomics.org strives to make data and statistics easily understandable for everyone. Here, complexity is embraced and beautified. However, many of the organizations and governments from where data on proteinomics.org are sourced can be somewhat idiosyncratic, especially when it comes to abbreviations and acronyms.
 
 Below is a glossary of terms you might encounter on proteinomics.org and links to further definitions directly from their sources.
+
+### Coming soon...
+
+<!--
 
 ### Proteinomics.org
 
@@ -26,4 +30,4 @@ Protein economics--the study of how protein is produced, distributed, and consum
 | GE | greater than or equal to |
 | FI | federally inspected |
 
-
+-->

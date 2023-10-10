@@ -24,7 +24,7 @@ p_chart_opts <- paste(here(), "proteinomics/highcharts/p_chart_opts.rds", sep = 
 p_chart_opts()
 
 ```
-```{r gtrends, echo=FALSE}
+```{r gtrends, echo=FALSE, error = TRUE}
 #get google trends data for web and news
 p_web <- gtrends(c("protein"), time="all")
 p_news <- gtrends(c("protein"), time="all", gprop=c("news"))
@@ -54,31 +54,35 @@ p_chart <- highchart() %>%
   hc_add_theme(p_theme())
 ```
 
-proteinomics.org is a collection of data visualizations and resources describing the global protein economy. It's an entirely free, open-source tool created with the following aims:
+proteinomics.org is a collection of data visualizations and resources describing the global protein economy. It is an entirely free, open-source tool created with the following aims:
 
-1. Enable easy access to information about protein and related topics
-2. Encourage more accurate journalism, communications, and visual storytelling
-3. Promote data and statistical numeracy 
+1. Enable easy access to information about protein and protein-related topics
+2. Support more accurate and data-driven journalism, communications, and visual storytelling
+3. Help elevate baseline levels of data and statistical numeracy
 4. Foster engagement in open-source projects with potential for broad public benefit
 
-Why is this cool? It's not just a resource for researching and reporting on protein-related topics, it's also a designed to make learning data visualization and analysis easier and more accessible for everyone.
+Why is this cool? proteinomics.org is not merely a resource for researching and reporting on protein-related topics, it is also a designed to make learning data visualization and analysis easier and more accessible for everyone.
 
 ### Why protein
 
 <div class="about" style="display:block; width: 100%; flex-wrap: wrap;">
 <div style="width: auto !important; float: right; margin-left: 10px;">
-```{r gtrends_chart, echo=FALSE}
+```{r gtrends_chart, echo=FALSE, error = TRUE}
 p_chart
 ```
 </div>
-Protein is a topic of growing public interest. It's also a common theme of scientific and nutritional illiteracy. Online media and social media environments often contribute to confusion as sources of misinformation and culturally or ideologically biased reporting. That's why we decided to create a resource that's different--an easy fact-checking tool that not only answers questions, but also inspires users to look deeper and more critically at the issues.
+Protein is a topic of growing public interest. It is also a common theme of scientific and nutritional illiteracy. Online media and social media environments often contribute to confusion as sources of misinformation and culturally or ideologically biased reporting. proteinomics.org is an easy fact-checking tool that not only answers questions, but also inspires users to look deeper and more critically at the issues.
 </div>
 
 ### How to contribute
 
 View the [readme on Github](https://github.com/proteinomics/proteinomics.org) to download the entire project or individual parts for local editing.
 
+<!--
+
 Donations can be made via [this page](https://www.proteinreport.org/support-us).
+
+-->
 
 ### Who
 

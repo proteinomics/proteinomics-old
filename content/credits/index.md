@@ -9,7 +9,7 @@ images: []
 
 ### Data sources
 
-In order to keep all content current with official data sources, proteinomics.org strives to only include data accessible by API. If you are the owner or manager of a data set that isn't accessible via API but you think belongs on proteinomics.org, please send a message.
+In order to keep all content current with official data sources, proteinomics.org strives to only include data accessible by API. If you are the owner or manager of a data set that is not accessible via API but you think it belongs on proteinomics.org, please send a message.
 
 Most data on proteinomics.org come from the from the following sources:
 
@@ -35,7 +35,7 @@ Charts on proteinomics.org containing data from sources other than the above wil
 
 proteinomics.org could not have been built without the well-documented work of these individuals:
 
-* [Yihui Xie](https://yihui.org/en/), [Amber Thomas](https://amber.rbind.io/), and [Alison Presmanes Hill](https://www.apreshill.com/) - superheros of data visualization and visual storytelling. They are also the authors of the documentation for [blogdown](https://github.com/rstudio/blogdown), the R package used to build proteinomics.org. 
+* [Yihui Xie](https://yihui.org/en/), [Amber Thomas](https://amber.rbind.io/), and [Alison Presmanes Hill](https://www.apreshill.com/) - heros of data visualization and visual storytelling. They are also the authors of the documentation for [blogdown](https://github.com/rstudio/blogdown), the R package used to build proteinomics.org. 
 
 * [Joshua Kunst](https://jkunst.com/) - developer and maintainer of the [highcharter](https://jkunst.com/highcharter/index.html) package for R, and author of many well-documented example cases, without which proteinomics.org would be at a significant loss. 
 
@@ -45,7 +45,7 @@ proteinomics.org could not have been built without the well-documented work of t
 
 * [Highcharts](https://www.highcharts.com/) - enterprise charting library free for noncommercial use
 
-* Github - hosting the proteinomics.org files from which the website is built, and providing access to the global community of experts and open-source enthusiasts
+* [Github](https://github.com/) - hosting the proteinomics.org files from which the website is built, and providing access to the global community of experts and open-source enthusiasts
 
 * [Netlify](https://www.netlify.com) - continuous deployment and hosting of the proteinomics.org public website
 
