@@ -17,7 +17,10 @@ defaultContentLanguage = "en"
 disableLanguages = ["de", "nl"]
 defaultContentLanguageInSubdir = false
 
-copyRight = "Copyright (c) 2023 proteinomics"
+copyRight = "Copyright (c) 2023 proteinomics.org"
+
+[build.buildStats]
+  enable = true
 
 [social]
   twitter = "protein_report"

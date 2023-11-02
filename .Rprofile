@@ -21,4 +21,4 @@ options(
 
 # fix Hugo version
 # config details from https://github.com/rstudio/blogdown/issues/716#issuecomment-1182542289
-options(blogdown.hugo.version = "0.118.2", blogdown.hugo.dir = "node_modules/.bin/hugo")
+options(blogdown.hugo.version = "0.119.0", blogdown.hugo.dir = "node_modules/.bin/hugo")
