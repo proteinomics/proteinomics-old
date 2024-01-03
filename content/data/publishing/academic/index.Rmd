@@ -1,0 +1,73 @@
+---
+title: "Academic"
+description: ""
+lead: ""
+date: 2022-07-21T16:56:04+02:00
+lastmod: 2022-07-21T16:56:04+02:00
+draft: false
+images: []
+weight: 999
+toc: false
+---
+
+```{r setup, include=FALSE, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+#load libraries
+library(dplyr)
+library(readr)
+library(highcharter)
+library(htmlwidgets)
+library(here)
+library(openalexR)
+library(ggplot2)
+
+## Load proteinomics highcharts plot style settings
+p_theme <- paste(here(), "proteinomics/highcharts/p_theme.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts <- paste(here(), "proteinomics/highcharts/p_chart_opts.rds", sep = "/") %>%
+  read_rds()
+p_chart_opts()
+
+# set %notin% operator
+`%notin%` <- Negate(`%in%`)
+
+```
+
+```{r academic, echo=FALSE, message=FALSE, warning=FALSE}
+
+query <- oa_query(
+  identifier = NULL,
+  entity = "works",
+  from_publication_date = "1800-01-01",
+  to_publication_date = "2023-12-31",
+  search = "meat and protein and sustainability",
+  endpoint = "https://api.openalex.org"
+)
+
+res <- oa_request(
+  query_url = query,
+  count_only = F,
+  verbose = FALSE
+)
+
+df <- oa2df(res, entity = "works")
+
+count <- df %>%
+  group_by(publication_year) %>%
+  summarise(count = n())
+
+pub_plot <- highchart() %>%
+  hc_add_series(count,"spline", hcaes(publication_year, count), name = "Count") %>%
+  hc_title(text = "Academic Publications Related to Protein") %>%
+  hc_subtitle(text = "Source: OpenAlex, proteinomics.org") %>%
+  hc_exporting(enabled=TRUE) %>%
+  hc_credits(enabled = TRUE,
+    text = "proteinomics.org",
+    href = "https://proteinomics.org/") %>%
+  hc_caption(text = "Source: OpenAlex, proteinomics.org") %>%
+  hc_tooltip(split=F, table=T, sort=T) %>%
+  hc_add_theme(p_theme())
+
+pub_plot
+
+
+```
