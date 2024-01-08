@@ -4,7 +4,7 @@ description: ""
 lead: ""
 date: 2022-07-21T16:56:04+02:00
 lastmod: 2022-07-21T16:56:04+02:00
-draft: false
+draft: true
 images: []
 weight: 999
 toc: false
@@ -37,9 +37,9 @@ p_chart_opts()
 query <- oa_query(
   identifier = NULL,
   entity = "works",
-  from_publication_date = "1800-01-01",
+  from_publication_date = "1700-01-01",
   to_publication_date = "2023-12-31",
-  search = "meat and protein and sustainability",
+  search = "protein",
   endpoint = "https://api.openalex.org"
 )
 
