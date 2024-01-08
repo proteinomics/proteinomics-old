@@ -32,7 +32,7 @@ p_chart_opts()
 
 ```
 
-```{r academic, echo=FALSE, message=FALSE, warning=FALSE}
+```{r academic, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 
 query <- oa_query(
   identifier = NULL,
