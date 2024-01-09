@@ -24,16 +24,16 @@ p_chart_opts <- paste(here(), "proteinomics/highcharts/p_chart_opts.rds", sep = 
 p_chart_opts()
 
 ```
-```{r gtrends, echo=FALSE, error = TRUE}
+```{r gtrends, echo=FALSE, error = TRUE, include=FALSE}
 #get google trends data for web and news
-p_web <- gtrends(c("protein"), time="all")
-p_news <- gtrends(c("protein"), time="all", gprop=c("news"))
+#p_web <- gtrends(c("protein"), time="all")
+#p_news <- gtrends(c("protein"), time="all", gprop=c("news"))
 
-pw <- as_tibble(p_web$interest_over_time)
-pn <- as_tibble(p_news$interest_over_time)
+#pw <- as_tibble(p_web$interest_over_time)
+#pn <- as_tibble(p_news$interest_over_time)
 
-pw$date <- as.Date(pw$date)
-pn$date <- as.Date(pn$date)
+#pw$date <- as.Date(pw$date)
+#pn$date <- as.Date(pn$date)
 
 # sw_plot <- ggplot() +
 #   geom_line(data = sw, aes(date,hits), color="red") +
@@ -41,10 +41,14 @@ pn$date <- as.Date(pn$date)
 # 
 # sw_plot
 
+# Get Google Trends data from csv
+pw <- read_csv("gtrends.csv")
+pw$Month <- as.Date(paste0(pw$Month, "-01"))
+
 # Highchart version
 
 p_chart <- highchart() %>%
- hc_add_series(pw, type="spline", name="Web search", hcaes(x = date, y = hits)) %>%
+ hc_add_series(pw, type="spline", name="Web search", hcaes(x = Month, y = protein)) %>%
 # hc_add_series(pn, type="spline", name="News search", hcaes(x = date, y = hits)) %>%
   hc_xAxis(type = "datetime") %>%
   hc_yAxis(max=100) %>%
@@ -54,14 +58,14 @@ p_chart <- highchart() %>%
   hc_add_theme(p_theme())
 ```
 
-proteinomics.org is a collection of data visualizations and resources describing the global protein economy. It is an entirely free, open-source tool created with the following aims:
+proteinomics.org is the collection of data visualizations and resources describing the global protein economy. It is an entirely free, open-source tool created with the following aims:
 
-1. Enable easy access to information about protein and protein-related topics
+1. Facilitate access to information about protein and related topics
 2. Support more accurate and data-driven journalism, communications, and visual storytelling
 3. Help elevate baseline levels of data and statistical numeracy
 4. Foster engagement in open-source projects with potential for broad public benefit
 
-Why is this cool? proteinomics.org is not merely a resource for researching and reporting on protein-related topics, it is also a designed to make learning data visualization and analysis easier and more accessible for everyone.
+proteinomics.org is not merely a resource for researching and reporting on protein-related topics, it is also a designed to make learning data visualization and analysis easier and more accessible for everyone.
 
 ### Why protein
 
@@ -71,20 +75,14 @@ Why is this cool? proteinomics.org is not merely a resource for researching and 
 p_chart
 ```
 </div>
-Protein is a topic of growing public interest. It is also a common theme of scientific and nutritional illiteracy. Online media and social media environments often contribute to confusion as sources of misinformation and culturally or ideologically biased reporting. proteinomics.org is an easy fact-checking tool that not only answers questions, but also inspires users to look deeper and more critically at the issues.
+Protein is a topic of growing public interest. It is also a common theme of scientific and nutritional illiteracy. Online media and social media environments often contribute to confusion as sources of misinformation and culturally or ideologically biased reporting. proteinomics.org is a fact-checking tool that not only helps answer common questions, but also inspires users to look deeper and more critically at the issues.
 </div>
 
 ### How to contribute
 
-We're building the protein industry's data dashboard and visualization encyclopedia, and you can too! It's 100% open source and entirely built using free tools and software. Anyone with basic knowledge of R and git can easily contribute.
+proteinomics.org is 100% open source and entirely built using free tools and software. Anyone with basic knowledge of R and git can contribute.
 
 View the [readme on Github](https://github.com/proteinomics/proteinomics.org) to download the entire project or individual parts for local editing.
-
-<!--
-
-Donations can be made via [this page](https://www.proteinreport.org/support-us).
-
--->
 
 ### Who
 
