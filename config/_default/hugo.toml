@@ -11,6 +11,7 @@ languageCode = "en-US"
 paginate = 10
 rssLimit = 10
 summarylength = 20 # 70 (default)
+googleAnalytics = "G-8XY3EHL2E1"
 
 # Multilingual
 defaultContentLanguage = "en"
