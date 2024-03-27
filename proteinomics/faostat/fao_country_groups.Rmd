@@ -10,6 +10,7 @@ library(dplyr)
 library(readr)
 
 ## Load FAO country groups from csv
+## downloaded from https://www.fao.org/faostat/en/#definitions
 fao_groups <- read_csv("fao_country_groups_2022.csv") %>%
   data.frame()
 
